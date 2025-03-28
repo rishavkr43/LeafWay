@@ -42,6 +42,8 @@ python train_model.py
 
 ## Usage
 
+Live link: [https://web-production-09e29.up.railway.app/](https://web-production-09e29.up.railway.app/)
+
 1. Start the Flask server:
 ```
 python app.py
