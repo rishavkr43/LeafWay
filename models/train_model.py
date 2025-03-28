@@ -10,11 +10,16 @@ from sklearn.svm import SVC
 from sklearn.metrics import accuracy_score
 import joblib # Added for saving the model
 import warnings
+import os # Import os module
+
 warnings.filterwarnings('ignore')
 
 # --- Configuration ---
-DATASET_PATH = 'vehicle_data.csv' # Make sure this file is in the same directory
-MODEL_SAVE_PATH = 'eco_predictor_model.joblib'
+# Get the directory where the script is located
+script_dir = os.path.dirname(__file__)
+# Construct paths relative to the script directory
+DATASET_PATH = os.path.join(script_dir, 'vehicle_data.csv')
+MODEL_SAVE_PATH = os.path.join(script_dir, 'eco_predictor_model.joblib')
 # --------------------
 
 print(f"Loading dataset from: {DATASET_PATH}")
@@ -163,6 +168,8 @@ else:
 # -------------------------------------------------------------------------
 print(f"\nSaving the final tuned model to {MODEL_SAVE_PATH}...")
 try:
+    # Ensure the directory exists (though it should as it's the script's dir)
+    os.makedirs(os.path.dirname(MODEL_SAVE_PATH), exist_ok=True)
     joblib.dump(tuned_model, MODEL_SAVE_PATH)
     print(f"Model saved successfully with accuracy: {tuned_accuracy:.4f}")
 except Exception as e:
